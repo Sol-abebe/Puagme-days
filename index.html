@@ -258,48 +258,22 @@
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 23%;
+      width: 25%;
       aspect-ratio: 1/1;
       background: white;
       border-radius: 50%;
-      border: 3px solid #e2e8f0;
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 6px;
+      padding: 4px;
       z-index: 4;
       animation: pulseGlow 3s infinite alternate;
     }
 
-    .logo-svg-wrapper {
+    .party-svg-logo {
       width: 100%;
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .party-svg-logo {
-      width: 65%;
-      height: 65%;
-    }
-
-    .logo-text-top { 
-      font-size: 0.45rem; 
-      font-weight: 900; 
-      color: #1e3a8a; 
-      margin-top: -2px;
-      letter-spacing: -0.2px;
-    }
-
-    .logo-text-bottom { 
-      font-size: 0.42rem; 
-      font-weight: 700; 
-      color: #dc2626; 
-      letter-spacing: 0.5px; 
     }
 
     /* Footer */
@@ -418,39 +392,60 @@
 
     <div class="diagram-area">
       
-      <!-- Real Prosperity Party Center Logo -->
+      <!-- Prosperity Party Center Logo -->
       <div class="center-logo">
-        <div class="logo-svg-wrapper">
-          <!-- Official Prosperity Party Vector Symbol -->
-          <svg class="party-svg-logo" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Sun Burst / Rays -->
-            <g id="sun-rays">
-              <path d="M100 15 L100 0 M100 185 L100 200 M15 100 L0 100 M185 100 L200 100" stroke="#facc15" stroke-width="6" stroke-linecap="round"/>
-              <path d="M40 40 L28 28 M160 160 L172 172 M40 160 L28 172 M160 40 L172 28" stroke="#facc15" stroke-width="6" stroke-linecap="round"/>
-              <path d="M100 25 L108 50 L125 35 L120 60 L145 55 L130 75 L155 82 L133 92 L158 108" fill="#facc15"/>
-              <path d="M100 25 L92 50 L75 35 L80 60 L55 55 L70 75 L45 82 L67 92 L42 108" fill="#facc15"/>
-            </g>
+        <svg class="party-svg-logo" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#facc15" />
+              <stop offset="50%" stop-color="#eab308" />
+              <stop offset="100%" stop-color="#2563eb" />
+            </linearGradient>
+          </defs>
 
-            <!-- Supporting Open Hands (Navy Blue & Teal) -->
-            <path d="M40 135 C 35 110, 60 90, 85 105 C 75 125, 55 140, 40 135 Z" fill="#1e3a8a"/>
-            <path d="M160 135 C 165 110, 140 90, 115 105 C 125 125, 145 140, 160 135 Z" fill="#0284c7"/>
+          <!-- Outer Circular Gradient Ring -->
+          <circle cx="120" cy="120" r="112" stroke="url(#ringGrad)" stroke-width="7" fill="white" />
 
-            <!-- People / Unity Figures (Red, Yellow, Green, Purple) -->
-            <circle cx="100" cy="85" r="10" fill="#dc2626"/>
-            <path d="M90 120 C 90 100, 110 100, 110 120 Z" fill="#dc2626"/>
+          <!-- Sun Rays -->
+          <g id="sunburst" stroke="#facc15" stroke-width="2.5" stroke-linecap="round">
+            <line x1="120" y1="28" x2="120" y2="40" />
+            <line x1="102" y1="32" x2="106" y2="43" />
+            <line x1="138" y1="32" x2="134" y2="43" />
+            <line x1="86"  y1="40" x2="93"  y2="50" />
+            <line x1="154" y1="40" x2="147" y2="50" />
+            <line x1="74"  y1="54" x2="83"  y2="61" />
+            <line x1="166" y1="54" x2="157" y2="61" />
+            <line x1="66"  y1="70" x2="77"  y2="75" />
+            <line x1="174" y1="70" x2="163" y2="75" />
+          </g>
 
-            <circle cx="80" cy="95" r="8" fill="#facc15"/>
-            <path d="M72 125 C 72 108, 88 108, 88 125 Z" fill="#facc15"/>
+          <!-- Central Figures -->
+          <!-- Blue Left Figure -->
+          <circle cx="103" cy="62" r="5.5" fill="#2563eb" />
+          <path d="M103 68 C96 74, 91 85, 88 98 C93 96, 100 88, 106 79 Z" fill="#2563eb" />
 
-            <circle cx="120" cy="95" r="8" fill="#16a34a"/>
-            <path d="M112 125 C 112 108, 128 108, 128 125 Z" fill="#16a34a"/>
+          <!-- Yellow Center Figure -->
+          <circle cx="120" cy="52" r="6" fill="#eab308" />
+          <path d="M120 59 L114 96 L126 96 Z" fill="#eab308" />
 
-            <circle cx="65" cy="108" r="7" fill="#9333ea"/>
-            <circle cx="135" cy="108" r="7" fill="#0284c7"/>
-          </svg>
-          <span class="logo-text-top">ብልፅግና ፓርቲ</span>
-          <span class="logo-text-bottom">PROSPERITY PARTY</span>
-        </div>
+          <!-- Red Right Figure -->
+          <circle cx="137" cy="62" r="5.5" fill="#dc2626" />
+          <path d="M137 68 C144 74, 149 85, 152 98 C147 96, 140 88, 134 79 Z" fill="#dc2626" />
+
+          <!-- Black Cupped Hands -->
+          <path d="M72 90 C70 115, 88 140, 115 142 C104 125, 92 110, 83 95 C80 90, 74 85, 72 90 Z" fill="#1e293b" />
+          <path d="M168 90 C170 115, 152 140, 125 142 C136 125, 148 110, 157 95 C160 90, 166 85, 168 90 Z" fill="#1e293b" />
+
+          <!-- Typography -->
+          <!-- Amharic Text -->
+          <text x="120" y="162" text-anchor="middle" fill="#1e293b" font-size="16" font-weight="900" font-family="'Noto Sans Ethiopic', sans-serif">ብልፅግና ፓርቲ</text>
+
+          <!-- English Text -->
+          <text x="120" y="180" text-anchor="middle" fill="#1e293b" font-size="12.5" font-weight="900" letter-spacing="0.5">PROSPERITY PARTY</text>
+
+          <!-- Underline Accent -->
+          <line x1="58" y1="186" x2="182" y2="186" stroke="#1e293b" stroke-width="2" stroke-linecap="round" />
+        </svg>
       </div>
 
       <!-- Day 1 Card -->
