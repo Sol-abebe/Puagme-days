@@ -1,0 +1,561 @@
+ <!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>የጳጉሜ ቀናት - Pagume Days Animated</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans Ethiopic', sans-serif;
+    }
+
+    body {
+      background-color: #d1d5db;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    /* Main Canvas */
+    .poster-container {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      aspect-ratio: 1 / 1.05;
+      background: linear-gradient(135deg, #f2f4f8 0%, #e2e8f0 100%);
+      border-radius: 4px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid #cbd5e1;
+    }
+
+    /* Top and Bottom Decorative Borders */
+    .top-border {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 14px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .border-yellow-top {
+      width: 25%;
+      height: 100%;
+      background-color: #facc15;
+    }
+
+    .bottom-border {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 25px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .border-blue-bottom {
+      width: 25%;
+      height: 100%;
+      background-color: #06b6d4;
+      margin: 0 auto;
+    }
+
+    .border-yellow-bottom {
+      width: 25%;
+      height: 100%;
+      background-color: #facc15;
+    }
+
+    /* Header Title */
+    .header-title {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 2.3rem;
+      font-weight: 900;
+      color: #00acc1;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0, 172, 193, 0.15);
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    /* Diagram Area */
+    .diagram-area {
+      position: relative;
+      width: 85%;
+      height: 68%;
+      margin: 0 auto;
+    }
+
+    /* Card Wrapper */
+    .day-card-wrapper {
+      position: absolute;
+      width: 38%;
+      aspect-ratio: 1/1;
+      background: #ffffff;
+      border-radius: 50%;
+      padding: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12), inset 0 -3px 6px rgba(0,0,0,0.05);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: floatIdle 4s ease-in-out infinite alternate;
+    }
+
+    .day-card-wrapper:hover {
+      transform: scale(1.1) translateY(-8px) !important;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.3) !important;
+      z-index: 20 !important;
+    }
+
+    /* Spontaneous Pop-out Highlight Animation State */
+    .day-card-wrapper.popped {
+      transform: scale(1.18) translateY(-12px) !important;
+      box-shadow: 0 0 35px rgba(250, 204, 21, 0.9), 0 20px 40px rgba(0,0,0,0.35) !important;
+      z-index: 30 !important;
+    }
+
+    .day-card-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 -6px 12px rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    /* Floral Banner Accent */
+    .card-banner {
+      width: 100%;
+      height: 16px;
+      background: repeating-linear-gradient(
+        90deg,
+        #facc15,
+        #facc15 8px,
+        #eab308 8px,
+        #eab308 16px
+      );
+      position: absolute;
+      bottom: 25%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card-banner::after {
+      content: '🌼🌼🌼🌼🌼🌼🌼';
+      font-size: 8px;
+      letter-spacing: 2px;
+      opacity: 0.8;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 2px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .card-sub {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .card-day-num {
+      position: absolute;
+      bottom: 6%;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    /* Detail Pop-out Tooltip Box */
+    .popout-details {
+      position: absolute;
+      top: -75px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.7);
+      width: 210px;
+      background: rgba(15, 23, 42, 0.95);
+      color: #ffffff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      line-height: 1.3;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 35;
+      border: 1.5px solid #facc15;
+    }
+
+    .popout-details::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 8px 8px 0;
+      border-style: solid;
+      border-color: rgba(15, 23, 42, 0.95) transparent;
+      display: block;
+      width: 0;
+    }
+
+    /* Active Details State */
+    .day-card-wrapper.popped .popout-details,
+    .day-card-wrapper:hover .popout-details {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* Circle Positions & Idle Float Animation Timings */
+    .card-day-1 { top: 0%; left: 31%; animation-delay: 0s; }
+    .card-day-1 .day-card-inner { background: linear-gradient(145deg, #ff8c00, #e65100); }
+
+    .card-day-2 { top: 25%; left: 3%; animation-delay: -0.8s; }
+    .card-day-2 .day-card-inner { background: linear-gradient(145deg, #e53935, #b71c1c); }
+
+    .card-day-3 { top: 25%; right: 3%; animation-delay: -1.6s; }
+    .card-day-3 .day-card-inner { background: linear-gradient(145deg, #00bfa5, #00796b); }
+
+    .card-day-4 { bottom: 6%; left: 17%; animation-delay: -2.4s; }
+    .card-day-4 .day-card-inner { background: linear-gradient(145deg, #8e24aa, #4a148c); }
+
+    .card-day-5 { bottom: 6%; right: 17%; animation-delay: -3.2s; }
+    .card-day-5 .day-card-inner { background: linear-gradient(145deg, #00acc1, #006064); }
+
+    /* Center Logo */
+    .center-logo {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 22%;
+      aspect-ratio: 1/1;
+      background: white;
+      border-radius: 50%;
+      border: 3px solid #e2e8f0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 4;
+      animation: pulseGlow 3s infinite alternate;
+    }
+
+    .logo-icon {
+      width: 45px;
+      height: 45px;
+      background: radial-gradient(circle, #facc15 0%, transparent 70%);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+
+    .logo-icon i { color: #1e3a8a; font-size: 1.4rem; }
+    .logo-text-top { font-size: 0.45rem; font-weight: 900; color: #1e3a8a; }
+    .logo-text-bottom { font-size: 0.45rem; font-weight: 700; color: #dc2626; letter-spacing: 0.5px; }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 25px 25px 25px;
+      z-index: 2;
+    }
+
+    .footer-brand { font-size: 1.05rem; font-weight: 700; color: #1e293b; }
+    .social-links { display: flex; gap: 8px; }
+
+    .social-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid #1e293b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #1e293b;
+      font-size: 0.75rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+      background-color: #1e293b;
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-header { font-size: 1.8rem; font-weight: 900; margin-bottom: 10px; }
+    .modal-body { font-size: 1.1rem; color: #475569; line-height: 1.6; margin-bottom: 20px; }
+
+    .close-btn {
+      background: #1e293b;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .close-btn:hover { background: #334155; }
+
+    /* Animations */
+    @keyframes floatIdle {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-6px); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlow {
+      from { box-shadow: 0 0 10px rgba(250, 204, 21, 0.4), 0 8px 20px rgba(0,0,0,0.15); }
+      to { box-shadow: 0 0 25px rgba(250, 204, 21, 0.8), 0 8px 25px rgba(0,0,0,0.25); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="poster-container">
+    <div class="top-border">
+      <div class="border-yellow-top"></div>
+    </div>
+
+    <h1 class="header-title">የጳጉሜ ቀናት</h1>
+
+    <div class="diagram-area">
+      
+      <!-- Central Logo -->
+      <div class="center-logo">
+        <div class="logo-icon">
+          <i class="fa-solid fa-hands-holding-child"></i>
+        </div>
+        <span class="logo-text-top">ብልፅግና ፓርቲ</span>
+        <span class="logo-text-bottom">PROSPERITY PARTY</span>
+      </div>
+
+      <!-- Day 1 Card -->
+      <div class="day-card-wrapper card-day-1" onclick="openModal('የመሸጋገር ቀን', 'ጳጉሜን 1 - የመሸጋገር ቀን፡ ከነባሩ ምዕራፍ ወደ አዲሱ ምዕራፍ እና ተስፋ የምንሸጋገርበት የዕድገት እና የለውጥ ቀን።')">
+        <div class="popout-details">✨ <strong>ጳጉሜን 1</strong><br>ከነባሩ ምዕራፍ ወደ አዲሱ ተስፋ የምንሸጋገርበት ቀን!</div>
+        <div class="day-card-inner">
+          <div class="card-title">የመሸጋገር</div>
+          <div class="card-sub">ቀን</div>
+          <div class="card-banner"></div>
+          <div class="card-day-num">ጳጉሜን 1</div>
+        </div>
+      </div>
+
+      <!-- Day 2 Card -->
+      <div class="day-card-wrapper card-day-2" onclick="openModal('የሪፎርም ቀን', 'ጳጉሜን 2 - የሪፎርም ቀን፡ የተጀመሩ የለውጥ እና የኢኮኖሚ፣ የማህበራዊ እና የፖለቲካ ማሻሻያዎችን የምናጎለብትበት ቀን።')">
+        <div class="popout-details">✨ <strong>ጳጉሜን 2</strong><br>የተጀመሩ የኢኮኖሚና ማህበራዊ ማሻሻያዎችን የምናጎለብትበት ቀን!</div>
+        <div class="day-card-inner">
+          <div class="card-title">የሪፎርም</div>
+          <div class="card-sub">ቀን</div>
+          <div class="card-banner"></div>
+          <div class="card-day-num">ጳጉሜን 2</div>
+        </div>
+      </div>
+
+      <!-- Day 3 Card -->
+      <div class="day-card-wrapper card-day-3" onclick="openModal('የሉአላዊነት ቀን', 'ጳጉሜን 3 - የሉአላዊነት ቀን፡ የሀገራችንን ነፃነት፣ ክብር እና ሉአላዊነት በፅናት የምናስከብርበት እና የምንዘክርበት ቀን።')">
+        <div class="popout-details">✨ <strong>ጳጉሜን 3</strong><br>የሀገራችንን ነፃነትና ሉአላዊነት በፅናት የምናስከብርበት ቀን!</div>
+        <div class="day-card-inner">
+          <div class="card-title">የሉአላዊነት</div>
+          <div class="card-sub">ቀን</div>
+          <div class="card-banner"></div>
+          <div class="card-day-num">ጳጉሜን 3</div>
+        </div>
+      </div>
+
+      <!-- Day 4 Card -->
+      <div class="day-card-wrapper card-day-4" onclick="openModal('የኅብር ቀን', 'ጳጉሜን 4 - የኅብር ቀን፡ የኢትዮጵያ ህዝቦች ብዝሃነት፣ አንድነት፣ ህብረት እና ወንድማማችነት የሚጎላበት ቀን።')">
+        <div class="popout-details">✨ <strong>ጳጉሜን 4</strong><br>የብዝሃነት፣ አንድነትና ወንድማማችነት ቀን!</div>
+        <div class="day-card-inner">
+          <div class="card-title">የኅብር</div>
+          <div class="card-sub">ቀን</div>
+          <div class="card-banner"></div>
+          <div class="card-day-num">ጳጉሜን 4</div>
+        </div>
+      </div>
+
+      <!-- Day 5 Card -->
+      <div class="day-card-wrapper card-day-5" onclick="openModal('የነገ ቀን', 'ጳጉሜን 5 - የነገ ቀን፡ ለተሻለች፣ ለበለፀገች እና ለታላቋ ነገ ኢትዮጵያ ራዕያችንን የምናስቀምጥበት የነገ ቀን።')">
+        <div class="popout-details">✨ <strong>ጳጉሜን 5</strong><br>ለበለፀገችና ታላቋ ነገ ኢትዮጵያ ራዕያችንን የምንሰንቅበት ቀን!</div>
+        <div class="day-card-inner">
+          <div class="card-title">የነገ</div>
+          <div class="card-sub">ቀን</div>
+          <div class="card-banner"></div>
+          <div class="card-day-num">ጳጉሜን 5</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-brand">Prosperity Party</div>
+      <div class="social-links">
+        <a href="#" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="social-icon" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" class="social-icon" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      </div>
+    </div>
+
+    <div class="bottom-border">
+      <div class="border-blue-bottom"></div>
+      <div class="border-yellow-bottom"></div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="infoModal" onclick="closeModal(event)">
+    <div class="modal-card">
+      <h2 class="modal-header" id="modalTitle">የቀን ስም</h2>
+      <p class="modal-body" id="modalDescription">ዝርዝር መረጃ...</p>
+      <button class="close-btn" onclick="hideModal()">ዘጋ</button>
+    </div>
+  </div>
+
+  <!-- Random Spontaneous Pop-Out Logic Script -->
+  <script>
+    const cards = document.querySelectorAll('.day-card-wrapper');
+    let isUserHovering = false;
+
+    // Pause random popups on hover
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        isUserHovering = true;
+        clearPoppedState();
+      });
+      card.addEventListener('mouseleave', () => {
+        isUserHovering = false;
+      });
+    });
+
+    function clearPoppedState() {
+      cards.forEach(c => c.classList.remove('popped'));
+    }
+
+    function triggerRandomPopout() {
+      if (!isUserHovering) {
+        clearPoppedState();
+        
+        // Select random card index
+        const randomIndex = Math.floor(Math.random() * cards.length);
+        const selectedCard = cards[randomIndex];
+        
+        // Add highlight/popout animation class
+        selectedCard.classList.add('popped');
+
+        // Automatically un-pop after 1.8 seconds
+        setTimeout(() => {
+          selectedCard.classList.remove('popped');
+        }, 1800);
+      }
+
+      // Schedule next random pop in 2.2 to 3.8 seconds
+      const nextDelay = Math.random() * 1600 + 2200;
+      setTimeout(triggerRandomPopout, nextDelay);
+    }
+
+    // Start spontaneous animation cycle after 1.2s page load
+    setTimeout(triggerRandomPopout, 1200);
+
+    // Modal Control Functions
+    function openModal(title, description) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalDescription').innerText = description;
+      document.getElementById('infoModal').classList.add('active');
+    }
+
+    function hideModal() {
+      document.getElementById('infoModal').classList.remove('active');
+    }
+
+    function closeModal(event) {
+      if (event.target.classList.contains('modal-overlay')) {
+        hideModal();
+      }
+    }
+  </script>
+</body>
+</html>
