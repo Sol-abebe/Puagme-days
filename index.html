@@ -252,13 +252,13 @@
     .card-day-5 { bottom: 6%; right: 17%; animation-delay: -3.2s; }
     .card-day-5 .day-card-inner { background: linear-gradient(145deg, #00acc1, #006064); }
 
-    /* Center Logo */
+    /* Official Center Logo Styling */
     .center-logo {
       position: absolute;
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 22%;
+      width: 23%;
       aspect-ratio: 1/1;
       background: white;
       border-radius: 50%;
@@ -268,24 +268,39 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding: 6px;
       z-index: 4;
       animation: pulseGlow 3s infinite alternate;
     }
 
-    .logo-icon {
-      width: 45px;
-      height: 45px;
-      background: radial-gradient(circle, #facc15 0%, transparent 70%);
-      border-radius: 50%;
+    .logo-svg-wrapper {
+      width: 100%;
+      height: 100%;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      margin-bottom: 2px;
     }
 
-    .logo-icon i { color: #1e3a8a; font-size: 1.4rem; }
-    .logo-text-top { font-size: 0.45rem; font-weight: 900; color: #1e3a8a; }
-    .logo-text-bottom { font-size: 0.45rem; font-weight: 700; color: #dc2626; letter-spacing: 0.5px; }
+    .party-svg-logo {
+      width: 65%;
+      height: 65%;
+    }
+
+    .logo-text-top { 
+      font-size: 0.45rem; 
+      font-weight: 900; 
+      color: #1e3a8a; 
+      margin-top: -2px;
+      letter-spacing: -0.2px;
+    }
+
+    .logo-text-bottom { 
+      font-size: 0.42rem; 
+      font-weight: 700; 
+      color: #dc2626; 
+      letter-spacing: 0.5px; 
+    }
 
     /* Footer */
     .footer {
@@ -403,20 +418,46 @@
 
     <div class="diagram-area">
       
-      <!-- Central Logo -->
+      <!-- Real Prosperity Party Center Logo -->
       <div class="center-logo">
-        <div class="logo-icon">
-          <i class="fa-solid fa-hands-holding-child"></i>
+        <div class="logo-svg-wrapper">
+          <!-- Official Prosperity Party Vector Symbol -->
+          <svg class="party-svg-logo" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sun Burst / Rays -->
+            <g id="sun-rays">
+              <path d="M100 15 L100 0 M100 185 L100 200 M15 100 L0 100 M185 100 L200 100" stroke="#facc15" stroke-width="6" stroke-linecap="round"/>
+              <path d="M40 40 L28 28 M160 160 L172 172 M40 160 L28 172 M160 40 L172 28" stroke="#facc15" stroke-width="6" stroke-linecap="round"/>
+              <path d="M100 25 L108 50 L125 35 L120 60 L145 55 L130 75 L155 82 L133 92 L158 108" fill="#facc15"/>
+              <path d="M100 25 L92 50 L75 35 L80 60 L55 55 L70 75 L45 82 L67 92 L42 108" fill="#facc15"/>
+            </g>
+
+            <!-- Supporting Open Hands (Navy Blue & Teal) -->
+            <path d="M40 135 C 35 110, 60 90, 85 105 C 75 125, 55 140, 40 135 Z" fill="#1e3a8a"/>
+            <path d="M160 135 C 165 110, 140 90, 115 105 C 125 125, 145 140, 160 135 Z" fill="#0284c7"/>
+
+            <!-- People / Unity Figures (Red, Yellow, Green, Purple) -->
+            <circle cx="100" cy="85" r="10" fill="#dc2626"/>
+            <path d="M90 120 C 90 100, 110 100, 110 120 Z" fill="#dc2626"/>
+
+            <circle cx="80" cy="95" r="8" fill="#facc15"/>
+            <path d="M72 125 C 72 108, 88 108, 88 125 Z" fill="#facc15"/>
+
+            <circle cx="120" cy="95" r="8" fill="#16a34a"/>
+            <path d="M112 125 C 112 108, 128 108, 128 125 Z" fill="#16a34a"/>
+
+            <circle cx="65" cy="108" r="7" fill="#9333ea"/>
+            <circle cx="135" cy="108" r="7" fill="#0284c7"/>
+          </svg>
+          <span class="logo-text-top">ብልፅግና ፓርቲ</span>
+          <span class="logo-text-bottom">PROSPERITY PARTY</span>
         </div>
-        <span class="logo-text-top">ብልፅግና ፓርቲ</span>
-        <span class="logo-text-bottom">PROSPERITY PARTY</span>
       </div>
 
       <!-- Day 1 Card -->
-      <div class="day-card-wrapper card-day-1" onclick="openModal('የመሸጋገር ቀን', 'ጳጉሜን 1 - የመሸጋገር ቀን፡ ከነባሩ ምዕራፍ ወደ አዲሱ ምዕራፍ እና ተስፋ የምንሸጋገርበት የዕድገት እና የለውጥ ቀን።')">
+      <div class="day-card-wrapper card-day-1" onclick="openModal('የእምርታ ቀን', 'ጳጉሜን 1 - የእምርታ ቀን፡ ከነባሩ ምዕራፍ ወደ አዲሱ ምዕራፍ እና ተስፋ የምንሸጋገርበት የዕድገት እና የለውጥ ቀን።')">
         <div class="popout-details">✨ <strong>ጳጉሜን 1</strong><br>ከነባሩ ምዕራፍ ወደ አዲሱ ተስፋ የምንሸጋገርበት ቀን!</div>
         <div class="day-card-inner">
-          <div class="card-title">የመሸጋገር</div>
+          <div class="card-title">የእምርታ</div>
           <div class="card-sub">ቀን</div>
           <div class="card-banner"></div>
           <div class="card-day-num">ጳጉሜን 1</div>
@@ -424,10 +465,10 @@
       </div>
 
       <!-- Day 2 Card -->
-      <div class="day-card-wrapper card-day-2" onclick="openModal('የሪፎርም ቀን', 'ጳጉሜን 2 - የሪፎርም ቀን፡ የተጀመሩ የለውጥ እና የኢኮኖሚ፣ የማህበራዊ እና የፖለቲካ ማሻሻያዎችን የምናጎለብትበት ቀን።')">
+      <div class="day-card-wrapper card-day-2" onclick="openModal('የማንሰራራት ቀን', 'ጳጉሜን 2 - የማንሰራራት ቀን፡ የተጀመሩ የለውጥ እና የኢኮኖሚ፣ የማህበራዊ እና የፖለቲካ ማሻሻያዎችን የምናጎለብትበት ቀን።')">
         <div class="popout-details">✨ <strong>ጳጉሜን 2</strong><br>የተጀመሩ የኢኮኖሚና ማህበራዊ ማሻሻያዎችን የምናጎለብትበት ቀን!</div>
         <div class="day-card-inner">
-          <div class="card-title">የሪፎርም</div>
+          <div class="card-title">የማንሰራራት</div>
           <div class="card-sub">ቀን</div>
           <div class="card-banner"></div>
           <div class="card-day-num">ጳጉሜን 2</div>
@@ -471,7 +512,7 @@
 
     <!-- Footer -->
     <div class="footer">
-      <div class="footer-brand">Prosperity Party</div>
+      <div class="footer-brand"><b>የብልጽግና ፓርቲ</b><br>Prosperity Party</div>
       <div class="social-links">
         <a href="#" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
         <a href="#" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
